@@ -42,7 +42,11 @@ slm.replace(to_replace=' ', value=np.nan, inplace=True)
 
 # Dropping rows with missing information
 slm.dropna(inplace=True)
+slm.isnull().sum() 
+slm 
 
+# Dropping duplicate rows from the csv file
+slm.drop_duplicates()
 
 
 
