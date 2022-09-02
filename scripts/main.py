@@ -19,10 +19,11 @@ print("Number of Columns: " + str(slm_cols))
 
 # Listing the column names
 column_names = list(slm)
+print("The columns in this csv are " + str(column_names))
 
 # Removing special characters & whitespace
-column_names = slm.columns.str.replace('[^A-Za-z0-9]+', '_')
-column_names
+slm.columns = slm.columns.str.replace('[^A-Za-z0-9]+', '_')
+slm.columns
 
 # Changing Week data type from object to datetime
 slm['Week'] = pd.to_datetime(slm['Week'])
@@ -32,8 +33,9 @@ slm.dtypes
 slm_strings = slm.select_dtypes(include=['object']).columns 
 
 # Cleaning whitespace or characters from object datatypes defined prior
-slm['District Name'] = slm['District Name'].replace('[^A-Za-z0-9]+', '_')
-
+slm['District_Name'] = slm['District_Name'].str.replace('[^A-Za-z0-9]+', '_')
+slm['Learning_Modality'] = slm['Learning_Modality'].str.replace('[^A-Za-z0-9]+', '_')
+slm['City'] = slm['City'].str.replace('[^A-Za-z0-9]+', '_')
 
 # Replacing missing information with NaN
 slm.isnull().sum()
@@ -48,7 +50,6 @@ slm
 # Dropping duplicate rows from the csv file
 slm.drop_duplicates()
 
-
-
-
-
+# Making a new column to define Learning modality as a boolean
+slm['Modality_Inperson'] = slm["Learning_Modality"] == 'In_Person'
+slm.head()
